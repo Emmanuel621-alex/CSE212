@@ -8,12 +8,17 @@ public static class Arrays
     /// <returns>array of doubles that are the multiples of the supplied number</returns>
     public static double[] MultiplesOf(double number, int length)
     {
-        // TODO Problem 1 Start
-        // Remember: Using comments in your program, write down your process for solving this problem
-        // step by step before you write the code. The plan should be clear enough that it could
-        // be implemented by another person.
+        // step 1: create a new array with the required length
+        double[] multiples = new double[length];
+        // step 2: loop through each position in the array
+        for (int i = 0; i < length; i++)
+        {
+            // step3: calculate the multiple 
+            //(i + 1) is used so the first value is number * 1, not number * 0
+            multiples[i] = number * (i + 1);
+        }
 
-        return []; // replace this return statement with your own
+        return multiples; 
     }
 
     /// <summary>
@@ -25,9 +30,16 @@ public static class Arrays
     /// </summary>
     public static void RotateListRight(List<int> data, int amount)
     {
-        // TODO Problem 2 Start
-        // Remember: Using comments in your program, write down your process for solving this problem
-        // step by step before you write the code. The plan should be clear enough that it could
-        // be implemented by another person.
+        // step 1: determine how many elements are in the list
+        int count = data.Count;
+        // step 2: get the last 'amount' of elements (which will be moved to the front)
+        List<int> rightpart = data.GetRange(count - amount, amount);
+        // step 3: get the  remeining elements at the beginning of the list
+        List<int> leftpart = data.GetRange(0, count - amount);
+        // step 4: clear the original list so we can rebuild it
+        data.Clear();
+        // step 5: add the right part first, then the left part
+        data.AddRange(rightpart);
+        data.AddRange(leftpart);
     }
 }
