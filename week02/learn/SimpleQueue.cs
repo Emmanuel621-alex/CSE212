@@ -10,7 +10,7 @@
         queue.Enqueue(100);
         var value = queue.Dequeue();
         Console.WriteLine(value);
-        // Defect(s) Found:
+        // NO DEFFECTS FOUND HERE IN THIS TEST:
 
         Console.WriteLine("------------");
 
@@ -28,7 +28,7 @@
         Console.WriteLine(value);
         value = queue.Dequeue();
         Console.WriteLine(value);
-        // Defect(s) Found: 
+        // NO DEFFECTS FOUND HERE IN THIS TEST:
 
         Console.WriteLine("------------");
 
@@ -44,7 +44,12 @@
         catch (IndexOutOfRangeException) {
             Console.WriteLine("I got the exception as expected.");
         }
-        // Defect(s) Found: 
+        // the defect here is that the the insert statment was wrong it should be 
+        // _ queue.Add(value); not _ queue.Insert(0, value);
+        // the second defect is that the index uased to remove from the 
+        // queue was wrong it should be 0 not 1
+        // and the if statement was wrong it should be (_queue.Count == 0) not (_queue.Count <= 0)
+        // becouse the count will be 0 when its empty not less than 0: 
     }
 
     private readonly List<int> _queue = new();
@@ -54,7 +59,7 @@
     /// </summary>
     /// <param name="value">Integer value to add to the queue</param>
     private void Enqueue(int value) {
-        _queue.Insert(0, value);
+        _queue.Add(value);
     }
 
     /// <summary>
@@ -63,11 +68,11 @@
     /// <exception cref="IndexOutOfRangeException">If queue is empty</exception>
     /// <returns>First integer in the queue</returns>
     private int Dequeue() {
-        if (_queue.Count <= 0)
+        if (_queue.Count == 0)
             throw new IndexOutOfRangeException();
 
-        var value = _queue[1];
-        _queue.RemoveAt(1);
+        var value = _queue[0];
+        _queue.RemoveAt(0);
         return value;
     }
 }
