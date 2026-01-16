@@ -3,7 +3,7 @@
     private List<PriorityItem> _queue = new();
 
     /// <summary>
-    /// Add a new value to the queue with an associated priority.  The
+    /// Add a new value to the queue with an associated priority. The
     /// node is always added to the back of the queue regardless of 
     /// the priority.
     /// </summary>
@@ -11,6 +11,7 @@
     /// <param name="priority">The priority</param>
     public void Enqueue(string value, int priority)
     {
+        // Create a new priority item and add it to the back of the queue
         var newNode = new PriorityItem(value, priority);
         _queue.Add(newNode);
     }
@@ -24,15 +25,22 @@
 
         // Find the index of the item with the highest priority to remove
         var highPriorityIndex = 0;
-        for (int index = 1; index < _queue.Count - 1; index++)
+        for (int index = 1; index < _queue.Count; index++) // Iterate through all items
         {
-            if (_queue[index].Priority >= _queue[highPriorityIndex].Priority)
+            // Check for strictly higher priority for FIFO treatment
+            if (_queue[index].Priority > _queue[highPriorityIndex].Priority)
+            {
                 highPriorityIndex = index;
+            }
         }
 
-        // Remove and return the item with the highest priority
+        // Retrieve the value of the highest priority item
         var value = _queue[highPriorityIndex].Value;
-        return value;
+
+        // Remove the highest priority item from the queue
+        _queue.RemoveAt(highPriorityIndex);
+
+        return value; // Return the value of the highest priority item
     }
 
     // DO NOT MODIFY THE CODE IN THIS METHOD
